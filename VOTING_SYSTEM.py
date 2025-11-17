@@ -58,7 +58,7 @@ class App(ctk.CTk):
         justify='center').pack(padx=50, pady=(30, 10))
 
         # UMaT logo
-        logo = CTkImage(light_image=Image.open("GROUP 9A/images/umatlogo.jpg"),size=(327, 275))
+        logo = CTkImage(light_image=Image.open("images/umatlogo.jpg"), size=(327, 275))
         CTkLabel(self.home_login_frame, image=logo).pack(pady=20)
 
         # Username Entry
@@ -82,7 +82,7 @@ class App(ctk.CTk):
 
     def create_admin_tab(self):
         self.admin_login_frame = CTkFrame(self.admin_tab, fg_color='white')
-        self.admin_login_frame.pack(pady=10, expand=True, fill=BOTH)
+        self.admin_login_frame.pack(pady=10, expand=True, fill=tk.BOTH)
 
         # Welcome label
         CTkLabel(self.admin_login_frame, text="ADMIN'S PORTAL",
