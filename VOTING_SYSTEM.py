@@ -15,7 +15,26 @@ class App(ctk.CTk):
         self.geometry("800x600")
         self.title("Voting System")
         self.config(bg='white')
+        # start fullscreen and track state so we can toggle/restore
+        self.is_fullscreen = True
         self.attributes('-fullscreen', True)
+
+        # custom title bar with simple window controls
+        self.title_bar = ctk.CTkFrame(self, fg_color='white', height=36)
+        self.title_bar.pack(side=tk.TOP, fill=tk.X)
+
+        # window control buttons (right-aligned)
+        btn_close = ctk.CTkButton(self.title_bar, text="✕", width=36, height=28,
+                                  fg_color='#ff5c5c', hover_color='#ff8080', command=self.close_app)
+        btn_restore = ctk.CTkButton(self.title_bar, text="▢", width=36, height=28,
+                                    fg_color='#e0e0e0', hover_color='#d0d0d0', command=self.toggle_fullscreen)
+        btn_min = ctk.CTkButton(self.title_bar, text="—", width=36, height=28,
+                                fg_color='#e0e0e0', hover_color='#d0d0d0', command=self.iconify)
+
+        btn_close.pack(side=tk.RIGHT, padx=(6,12), pady=4)
+        btn_restore.pack(side=tk.RIGHT, padx=6, pady=4)
+        btn_min.pack(side=tk.RIGHT, padx=6, pady=4)
+
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(pady=10, expand=True, fill=tk.BOTH)
 
@@ -227,6 +246,14 @@ class App(ctk.CTk):
     def logout(self):
         self.admin_dashboard_frame.destroy()
         self.create_admin_tab()
+
+    # Window control helpers
+    def toggle_fullscreen(self):
+        self.is_fullscreen = not getattr(self, "is_fullscreen", False)
+        self.attributes('-fullscreen', self.is_fullscreen)
+
+    def close_app(self):
+        self.destroy()
 
 if __name__ == "__main__":
     app = App()
